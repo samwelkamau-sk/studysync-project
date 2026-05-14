@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Search from './Search';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { FaUserCircle } from 'react-icons/fa';
+// import { IoSearchOutline, IoNotificationsOutline } from "react-icons/io5"; // Ionicons style
+
 // import Name from './Name';
 
 function Dashboard() {
@@ -18,7 +19,7 @@ function Dashboard() {
   
   // Calculate percentage for the chart
   const percentageCompleted = Math.round((completedCount / totalTasks) * 100);
-  // const percentagePending = Math.round((pendingCount/totalTasks)*100);
+  const percentagePending = Math.round((pendingCount/totalTasks)*100);
 
   const toggleTask = (id) => {
     const updatedTasks = tasks.map(task => 
@@ -30,26 +31,30 @@ function Dashboard() {
   return (
     <div className="flex min-h-screen bg-[#F8F9FE]">
       {/* SIDEBAR */}
-      <div className="w-64 bg-[#2D2B7E] text-white p-6 hidden md:flex flex-col">
+      {/* <div className="w-64 bg-[#2D2B7E] text-white p-6 hidden md:flex flex-col">
         <h2 className="text-2xl font-bold mb-10 italic">StudySync</h2>
         <nav className="space-y-4 flex-1">
           <div className="bg-white/20 p-3 rounded-lg">🏠 Dashboard</div>
           <div className="p-3 opacity-70">📝 Tasks</div>
           <div className="p-3 opacity-70">📅 Calendar</div>
         </nav>
-      </div>
+      </div> */}
 
       {/* MAIN CONTENT */}
       <div className="flex-1 p-8">
         <div className="flex items-center justify-between">
           <h1 className='text-3xl mb-6 text-black-600'>Dashboard</h1>
           <Search/>
-          <FontAwesomeIcon icon={faBell} size='lg' />
+         <FaUserCircle className='h-12 w-12 text-gray-500'/>
         </div>
         <div className='grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8'>
-          <div className='bg-white p-6 rounded-xl shadow-sm border-b-4 h-30 w-380'>
+          <div className='bg-white p-10 rounded-xl shadow-sm border-b-4 h-30 w-380 flex items-center justify-between pt-30 pb-30'>
+            <div>
             <h2 className='text-2xl mb-3 mt-3 '>Hello!👋</h2>
             <p>Stay organized and start working on you study goals</p>
+            </div>
+            <img src="/src/assets/woman.webp" alt="" className='l-30 w-40 '/> 
+            
 
           </div>
 
@@ -120,13 +125,19 @@ function Dashboard() {
                   strokeLinecap="round"
                   className="transition-all duration-1000 ease-out"
                 />
+                <circle 
+                  cx="96" cy="96" r="80" stroke="#FFA500" strokeWidth="8" fill="transparent" 
+                  strokeDasharray="502" 
+                  strokeDashoffset={502 - (502 * percentagePending) / 100} 
+                  strokeLinecap="round"
+                  className="transition-all duration-1000 ease-out"
+                />
               </svg>
+              </div>
               <div className="absolute">
                 <p className="text-4xl font-black text-gray-800">{percentageCompleted}%</p>
                 <p className="text-xs text-gray-400 font-bold uppercase">Complete</p>
               </div>
-            </div>
-
             <p className="mt-8 text-gray-500 text-sm px-4">
               You have completed <b>{completedCount}</b> out of <b>{totalTasks}</b> study goals!
             </p>
